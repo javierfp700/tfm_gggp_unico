@@ -14,8 +14,7 @@ public class GP extends EC {
         new TournamentSelectorImpl(GPConstants.GP_REPLACED_POPULATION_PERCENTAGE,GPConstants.GP_TOURNAMENT_SIZE),
         new WhighamCrossoverImpl(),
         new StandardGPMutationImpl(),
-        new SteadyStateReplacementImpl(GPConstants.GP_REPLACED_POPULATION_PERCENTAGE),
-        "GP");
+        new SteadyStateReplacementImpl(GPConstants.GP_REPLACED_POPULATION_PERCENTAGE));
   }
 
   @Override

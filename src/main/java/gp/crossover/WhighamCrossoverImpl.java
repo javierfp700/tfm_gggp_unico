@@ -33,27 +33,15 @@ public class WhighamCrossoverImpl implements Crossover {
       System.err.println("Impossible to cross parents because no terminal nodes in common between parent 1-> "+derivationTreeParent1+" and parent 2-> "+derivationTreeParent2);
     } else {
       Random rand = new Random();
-      //System.out.println("Parent 1");
-      //System.out.println(derivationTreeParent1);
-      //System.out.println("Parent 2");
-      //System.out.println(derivationTreeParent2);
       Symbol crossoverSymbol = new ArrayList<>(noTerminalSymbolsParent1).get(rand.nextInt(noTerminalSymbolsParent1.size()));
       List<Node> possibleCrossoverNodesParent1 = noTerminalNodesParent1.stream().filter(node -> crossoverSymbol.equals(node.getSymbol())).collect(Collectors.toList());
       Node crossoverNodeParent1 = possibleCrossoverNodesParent1.get(rand.nextInt(possibleCrossoverNodesParent1.size()));
       List<Node> possibleCrossoverNodesParent2 = noTerminalNodesParent2.stream().filter(node -> crossoverSymbol.equals(node.getSymbol())).collect(Collectors.toList());
       Node crossoverNodeParent2 = possibleCrossoverNodesParent2.get(rand.nextInt(possibleCrossoverNodesParent2.size()));
-      //System.out.println("Crossover node parent 1");
-      //System.out.println(crossoverNodeParent1.getSymbol().getValue()+" ,parent-> "+crossoverNodeParent1.getParent().getSymbol().getValue());
-      //System.out.println("Crossover node parent 2");
-      //System.out.println(crossoverNodeParent2.getSymbol().getValue()+" ,parent-> "+crossoverNodeParent2.getParent().getSymbol().getValue());
       Node cloneCrossoverNodeParent1= SerializationUtils.clone(crossoverNodeParent1);
       Node cloneCrossoverNodeParent2= SerializationUtils.clone(crossoverNodeParent2);
       crossoverNodeParent1.replace(cloneCrossoverNodeParent2);
       crossoverNodeParent2.replace(cloneCrossoverNodeParent1);
-      //System.out.println("Parent 1 remove");
-      // System.out.println(derivationTreeParent1);
-      //System.out.println("Parent 2 remove");
-      //System.out.println(derivationTreeParent2);
     }
     Individual crossedIndividualGP1 =new IndividualGP(derivationTreeParent1);
     Individual crossedIndividualGP2 =new IndividualGP(derivationTreeParent2);

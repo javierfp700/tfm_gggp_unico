@@ -10,11 +10,8 @@ public class BattleObserver extends BattleAdaptor {
 
   private Individual individual;
 
-  private BattleOpponent opponent;
-
-  public BattleObserver(Individual individual,BattleOpponent opponent){
+  public BattleObserver(Individual individual){
     this.individual = individual;
-    this.opponent=opponent;
   }
 
   // Called when the battle is completed successfully with battle results
@@ -26,7 +23,7 @@ public class BattleObserver extends BattleAdaptor {
     for (robocode.BattleResults result : e.getSortedResults()) {
       System.out.println("  " + result.getTeamLeaderName() + ": " + result.getScore());
     }
-    individual.setFitness(e.getSortedResults(),opponent);
+    individual.setFitness(e.getSortedResults());
     /*individual.setFitness();*/
   }
 

@@ -11,11 +11,8 @@ public class RunValidate {
     List<String> opponents= Arrays.asList(
         RobocodeConstants.FROG_ROBOCODE
     );
-    ResultsValidateWin resultsValidateWin= ResultsValidateWin.getInstance();
     ValidationBattle validationBattle = new ValidationBattle();
-    while(!resultsValidateWin.winRobot) {
-      validationBattle.execute(myRobot, opponents);
-    }
+    validationBattle.execute(myRobot, opponents);
   }
 
 }

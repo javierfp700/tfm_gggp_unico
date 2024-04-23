@@ -12,7 +12,6 @@ import ec.initialization.PopulationGenerator;
 import ec.mutation.Mutation;
 import ec.replacement.Replacement;
 import ec.selection.Selector;
-import robocode.battle.BattleOpponent;
 
 public abstract class EC {
 
@@ -22,7 +21,7 @@ public abstract class EC {
   private final Mutation mutation;
   private final Replacement replacement;
 
-  public EC(PopulationGenerator populationGenerator,Selector selector, Crossover crossover, Mutation mutation, Replacement replacement, String algorithm){
+  public EC(PopulationGenerator populationGenerator,Selector selector, Crossover crossover, Mutation mutation, Replacement replacement){
     this.populationGenerator=populationGenerator;
     this.selector=selector;
     this.crossover=crossover;
@@ -30,9 +29,8 @@ public abstract class EC {
     this.replacement=replacement;
   }
 
-  public Individual execute(List<BattleOpponent> opponents){
+  public void execute(List<String> opponents){
     try{
-      //String opponentName=opponent.split("\\.")[1];
       String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new java.util.Date());
       new File("/home/jfernandez/Desktop/"+timestamp+"/bests").mkdirs();
       FileWriter myWriter = new FileWriter("/home/jfernandez/Desktop/"+timestamp+"/generations.txt");
@@ -45,7 +43,7 @@ public abstract class EC {
         ///////////////
         for(Individual individual: population.getIndividuals()){
           System.out.println(getAlgorithm() + " individual fitness: " + individual.getFitness()+" generation "+i+" id "+System.identityHashCode(individual));
-          myWriter.write("Individual fitness: " + individual.getFitness()+" fitness1 " + individual.getFitness1() + " results: " + individual.getBattleResults()+ " hitWalls: " + individual.getHitWallsList()+ " spacesAchieved: " + individual.getSpacesAchieved()+ " bulletHitAnotherRobot: " + individual.getBulletHitAnotherRobotList()+ " scannedRobot: " + individual.getScannedRobotList()+ " bulletHitMissed: " + individual.getBulletHitMissedList()+ " totalTurns: " + individual.getTotalTurnsList()+" generation "+i+" id "+System.identityHashCode(individual)+"\n");
+          myWriter.write("Individual fitness: " + individual.getFitness()+" results: " + individual.getBattleResults()+" generation "+i+" id "+System.identityHashCode(individual)+"\n");
         }
         ////////////////
         System.out.println("Selecting individuals "+ getAlgorithm() + " population"+" generation "+i);
@@ -58,46 +56,25 @@ public abstract class EC {
         replacement.replace(population,crossedIndividuals);
         Individual bestIndividual=population.getBestIndividual();
         System.out.println("Fitness best individual "+ getAlgorithm() +" generation "+i+" : "+ bestIndividual.getFitness());
-        myWriter.write("Fitness best individual: " + bestIndividual.getFitness()+ " fitness1 " + bestIndividual.getFitness1() + " results: " + bestIndividual.getBattleResults()+ " hitWalls: " + bestIndividual.getHitWallsList()+ " spacesAchieved: " + bestIndividual.getSpacesAchieved()+ " bulletHitAnotherRobot: " + bestIndividual.getBulletHitAnotherRobotList()+ " scannedRobot: " + bestIndividual.getScannedRobotList()+ " bulletHitMissed: " + bestIndividual.getBulletHitMissedList()+" totalTurns: " + bestIndividual.getTotalTurnsList()+" generation "+i+"\n");
+        myWriter.write("Fitness best individual: " + bestIndividual.getFitness()+ " results: " + bestIndividual.getBattleResults()+" generation "+i+"\n");
         myWriter.write("-------------------------------------"+"\n");
         bestIndividual.save("/home/jfernandez/Desktop/"+timestamp+"/bests/GPRobot"+i+".java");
       }
       population.evaluate(opponents);
       Individual bestIndividual = population.getBestIndividual();
-      System.out.println("Fitness best individual "+ getAlgorithm() + bestIndividual.getFitness()+ " hitWalls: " + bestIndividual.getHitWallsList()+ " spacesAchieved: " + bestIndividual.getSpacesAchieved()+ " bulletHitAnotherRobot: " + bestIndividual.getBulletHitAnotherRobotList()+ " scannedRobot: " + bestIndividual.getScannedRobotList()+ " bulletHitMissed: " + bestIndividual.getBulletHitMissedList()+" totalTurns: " + bestIndividual.getTotalTurnsList()+"\n");
+      System.out.println("Fitness best individual "+ getAlgorithm() + ": " + bestIndividual.getFitness()+"\n");
       myWriter.write("-------------------------------------"+"\n");
-      myWriter.write("Fitness best individual GP: " + bestIndividual.getFitness()+ " fitness1 " + bestIndividual.getFitness1() + " results: " + bestIndividual.getBattleResults()+ " hitWalls: " + bestIndividual.getHitWallsList()+ " spacesAchieved: " + bestIndividual.getSpacesAchieved()+ " bulletHitAnotherRobot: " + bestIndividual.getBulletHitAnotherRobotList()+ " scannedRobot: " + bestIndividual.getScannedRobotList()+ " bulletHitMissed: " + bestIndividual.getBulletHitMissedList()+" totalTurns: " + bestIndividual.getTotalTurnsList()+"\n");
+      myWriter.write("Fitness best individual GP: " + bestIndividual.getFitness()+ " results: " + bestIndividual.getBattleResults()+"\n");
       bestIndividual.save("/home/jfernandez/Desktop/"+timestamp+"/bests/GPRobot_best.java");
       myWriter.close();
-      return bestIndividual;
     } catch (IOException e) {
       System.err.println("Impossible to write generations");
       e.printStackTrace();
     }
-    return null;
   }
 
   public abstract Integer getMaximumGenerations();
 
   public abstract String getAlgorithm();
 
-  public PopulationGenerator getPopulationGenerator() {
-    return populationGenerator;
-  }
-
-  public Selector getSelector() {
-    return selector;
-  }
-
-  public Crossover getCrossover() {
-    return crossover;
-  }
-
-  public Mutation getMutation() {
-    return mutation;
-  }
-
-  public Replacement getReplacement() {
-    return replacement;
-  }
 }

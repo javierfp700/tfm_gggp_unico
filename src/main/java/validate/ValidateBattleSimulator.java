@@ -1,7 +1,6 @@
 package validate;
 
 import java.io.File;
-import java.io.FileWriter;
 import gp.algorithm.GPConstants;
 import robocode.RobocodeConstants;
 import robocode.control.BattleSpecification;
@@ -17,12 +16,11 @@ public class ValidateBattleSimulator {
 
   /**
    * Simulate battle
-   * @param individual individual participating in battle
    */
-  public static void simulateBattle(String opponent, FileWriter myWriter){
+  public static void simulateBattle(String opponent){
     RobocodeEngine.setLogMessagesEnabled(false);
     RobocodeEngine engine = new RobocodeEngine(new File(RobocodeConstants.ROBOCODE_PATH));
-    engine.addBattleListener(new ValidateBattleObserver(myWriter));
+    engine.addBattleListener(new ValidateBattleObserver());
     engine.setVisible(false);
     BattlefieldSpecification battlefield = new BattlefieldSpecification(WIDTH_BATTLEFIELD, HEIGHT_BATTLEFIELD); // 800x600
     RobotSpecification[] selectedRobots = engine

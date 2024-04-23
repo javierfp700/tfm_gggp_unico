@@ -1,11 +1,9 @@
 package validate;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
@@ -16,22 +14,11 @@ public class ValidationBattle {
 
 
   public void execute(String myRobot, List<String> opponents) {
-    //try{
-      String timestamp = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new java.util.Date());
-      //new File("/home/jfernandez/Desktop/"+timestamp+"_validate").mkdirs();
       copyGPRobot(myRobot);
       compileIndividual();
       for(String opponent: opponents){
-        //FileWriter myWriter = new FileWriter("/home/jfernandez/Desktop/"+timestamp+"_validate/"+opponent+".txt",true);
-        //simulateBattle(opponent,myWriter);
-        //myWriter.close();
-        simulateBattle(opponent,null);
-        //myWriter.close();
+        simulateBattle(opponent);
       }
-    //} catch (IOException e) {
-    //  System.err.println("Impossible to write generations");
-    //  e.printStackTrace();
-    //}
   }
 
   public void copyGPRobot(String myRobot){
@@ -46,7 +33,6 @@ public class ValidationBattle {
 
   /**
    * Write robot code in java file
-   * @param content content with robot code
    */
   private void writeInJavaFile(String content,String javaCodePath){
     try {
@@ -80,7 +66,7 @@ public class ValidationBattle {
   /**
    * Simulate battle with individual
    */
-  private void simulateBattle(String opponent,FileWriter myWriter){
-    ValidateBattleSimulator.simulateBattle(opponent,myWriter);
+  private void simulateBattle(String opponent){
+    ValidateBattleSimulator.simulateBattle(opponent);
   }
 }

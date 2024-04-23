@@ -2,7 +2,6 @@ package ec.evolution;
 
 import java.util.ArrayList;
 import java.util.List;
-import robocode.battle.BattleOpponent;
 
 public class Population {
 
@@ -23,7 +22,7 @@ public class Population {
   /**
    * Evaluate individuals of population
    */
-  public void evaluate(List<BattleOpponent> opponents){
+  public void evaluate(List<String> opponents){
     for(Individual individual : individuals){
       if(individual.getFitness()==Float.NEGATIVE_INFINITY){
         individual.evaluate(opponents);

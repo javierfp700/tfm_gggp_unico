@@ -3,8 +3,6 @@ package robocode.battle;
 import java.io.File;
 import ec.evolution.Individual;
 import gp.algorithm.GPConstants;
-import net.sf.robocode.battle.Battle;
-import robocode.BattleRules;
 import robocode.RobocodeConstants;
 import robocode.control.BattleSpecification;
 import robocode.control.BattlefieldSpecification;
@@ -21,14 +19,14 @@ public class BattleSimulator {
    * Simulate battle
    * @param individual individual participating in battle
    */
-  public static void simulateBattle(Individual individual,BattleOpponent opponent){
+  public static void simulateBattle(Individual individual,String opponent){
     RobocodeEngine.setLogMessagesEnabled(false);
     RobocodeEngine engine = new RobocodeEngine(new File(RobocodeConstants.ROBOCODE_PATH));
-    engine.addBattleListener(new BattleObserver(individual,opponent));
+    engine.addBattleListener(new BattleObserver(individual));
     engine.setVisible(false);
     BattlefieldSpecification battlefield = new BattlefieldSpecification(WIDTH_BATTLEFIELD, HEIGHT_BATTLEFIELD); // 800x600
     RobotSpecification[] selectedRobots = engine
-        .getLocalRepository(GPConstants.GP_ROBOT +","+opponent.getName());
+        .getLocalRepository(GPConstants.GP_ROBOT +","+opponent);
     BattleSpecification battleSpec = new BattleSpecification(ROUNDS_NUM, battlefield,
         selectedRobots);
     System.out.println("Executing battle");
