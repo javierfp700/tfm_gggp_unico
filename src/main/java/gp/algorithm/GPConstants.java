@@ -15,6 +15,6 @@ public class GPConstants {
   public static final Float GP_CROSSOVER_PROBABILITY =1F;
   public static final Float GP_MUTATION_PROBABILITY =0.15F;
   public static final Integer MAXIMUM_DEPTH_MUTATION_SUBTREE=20;
-  public static final Integer GP_MAXIMUM_GENERATIONS=3;
+  public static final Integer GP_MAXIMUM_GENERATIONS=200;
 
 }
